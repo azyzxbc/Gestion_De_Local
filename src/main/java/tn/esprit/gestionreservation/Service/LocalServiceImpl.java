@@ -5,26 +5,49 @@ import org.springframework.stereotype.Service;
 import tn.esprit.gestionreservation.Entity.Local;
 import tn.esprit.gestionreservation.Repository.LocalRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 @Service
 @AllArgsConstructor
 public class LocalServiceImpl implements ILocalService{
     LocalRepository LocalRepository;
 
-    public List<Local> retrieveAllLocales() {
+    @Override
+    public List<Local> GetAll() {
         return LocalRepository.findAll();
     }
-    public Local retrieveLocal(Long idLocal) {
+
+    @Override
+    public Local GetOne(Long idLocal) {
         return LocalRepository.findById(idLocal).get();
     }
 
-    public Local addLocal(Local l) {
+    @Override
+    public Local Add(Local l) {
         return LocalRepository.save(l);
     }
-    public void removeLocal(Long idLocal) {
+
+    @Override
+    public void Delete(Long idLocal) {
         LocalRepository.deleteById(idLocal);
     }
-    public Local modifyLocal(Local Local) {
+
+    @Override
+    public Local Update(Local Local) {
         return LocalRepository.save(Local);
     }
+
+
+    @Override
+    public List<Local> AllAvliableLocal() {
+        List<Local> locals = LocalRepository.findAll();
+        List<Local> locals_avaliables = new ArrayList<>();
+        for (Local local : locals) {
+            if (local.getTotal_group_study() < 4){
+                locals_avaliables.add(local);
+            }
+        }
+        return locals_avaliables;
+    }
+
 }

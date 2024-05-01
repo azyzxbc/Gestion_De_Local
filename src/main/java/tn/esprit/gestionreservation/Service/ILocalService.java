@@ -5,13 +5,15 @@ import tn.esprit.gestionreservation.Entity.Local;
 import java.util.List;
 
 public interface ILocalService {
-    public List<Local> retrieveAllLocales();
+    public List<Local> GetAll();
 
-    public Local retrieveLocal(Long idLocal);
+    public Local GetOne(Long idLocal);
 
-    public Local addLocal(Local l);
+    public Local Add(Local l);
 
-    public void removeLocal(Long idLocal);
+    public void Delete(Long idLocal);
 
-    public Local modifyLocal(Local Local);
+    public Local Update(Local Local);
+
+    public List<Local> AllAvliableLocal();
 }

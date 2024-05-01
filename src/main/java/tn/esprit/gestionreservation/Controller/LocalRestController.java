@@ -12,34 +12,38 @@ import java.util.List;
 @RequestMapping("/Local")
 public class LocalRestController {
     ILocalService LocalService;
-    // http://localhost:8087/Gestion-Local/Local/retrieve-all-Locales
-    @GetMapping("/retrieve-all-Locales")
-    public List<Local> getLocales() {
-        List<Local> listLocal = LocalService.retrieveAllLocales();
+
+    @GetMapping("")
+    public List<Local> GetAll() {
+        List<Local> listLocal = LocalService.GetAll();
         return listLocal;
     }
-    // http://localhost:8087/Gestion-Local/Local/retrieve-Local/1
-    @GetMapping("/retrieve-Local/{Local-id}")
-    public Local retrieveLocal(@PathVariable("Local-id") Long LId) {
-        Local Local = LocalService.retrieveLocal(LId);
-        return Local;
-    }
-    // http://localhost:8087/Gestion-Local/Local/add-Local
-    @PostMapping("/add-Local")
-    public Local addLocal(@RequestBody Local l) {
-        Local Local = LocalService.addLocal(l);
-        return Local;
-    }
-    // http://localhost:8087/Gestion-Local/Local/remove-Local/{Local-id}
-    @DeleteMapping("/remove-Local/{Local-id}")
-    public void removeLocal(@PathVariable("Local-id") Long LId) {
-        LocalService.removeLocal(LId);
-    }
-    // http://localhost:8087/Gestion-Local/Local/modify-Local
-    @PutMapping("/modify-Local")
-    public Local modifyLocal(@RequestBody Local l) {
-        Local Local = LocalService.modifyLocal(l);
+
+    @GetMapping("/{Local-id}")
+    public Local GetOne(@PathVariable("Local-id") Long LId) {
+        Local Local = LocalService.GetOne(LId);
         return Local;
     }
 
+    @PostMapping("")
+    public Local Add(@RequestBody Local l) {
+        Local Local = LocalService.Add(l);
+        return Local;
+    }
+
+    @DeleteMapping("/{Local-id}")
+    public void Delete (@PathVariable("Local-id") Long LId) {
+        LocalService.Delete(LId);
+    }
+    @PutMapping("/update")
+    public Local Update(@RequestBody Local l) {
+        Local Local = LocalService.Update(l);
+        return Local;
+    }
+
+    @GetMapping("/avliables")
+    public List<Local> AllAvliableLocal() {
+        List<Local> listLocal = LocalService.AllAvliableLocal();
+        return listLocal;
+    }
 }

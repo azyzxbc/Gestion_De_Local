@@ -17,7 +17,9 @@ public class Studygroup {
     Date Date_debut;
     String Topic;
     Level level;
-    String Location;
+    Long location ;
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.open;
     @ManyToMany(mappedBy = "Studygroups",cascade = CascadeType.ALL)
     private Set<Ressource> Ressources;
     @ManyToMany(cascade = CascadeType.ALL)

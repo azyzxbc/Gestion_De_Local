@@ -1,8 +1,6 @@
 package tn.esprit.gestionreservation.Entity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -16,7 +14,7 @@ public class Local {
     long idLocal;
     Boolean Availability;
     Integer Capacity;
-    Type TypeReservation;
+    Integer total_group_study = 0;
     @ManyToMany(mappedBy = "locals")
     private Set<User> users;
     @ManyToMany(mappedBy = "locals")

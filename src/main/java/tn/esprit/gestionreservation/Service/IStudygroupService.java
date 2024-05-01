@@ -1,17 +1,23 @@
 package tn.esprit.gestionreservation.Service;
 
+import tn.esprit.gestionreservation.Entity.Status;
 import tn.esprit.gestionreservation.Entity.Studygroup;
 
 import java.util.List;
 
 public interface IStudygroupService {
-    Studygroup addStudyGroup(Studygroup studygroup);
+    Studygroup Add(Studygroup studygroup);
 
-    List<Studygroup> getAllStudyGroup();
+    List<Studygroup> GetAll();
 
-    Studygroup getStudygroupById(long idStudyGroup);
+    Studygroup GetOne(long idStudyGroup);
 
-    void deleteStudyGroup(long isStudygroup);
+    void Delete (long isStudygroup);
 
-    Studygroup updateStudygroup(Studygroup studygroup);
+    Studygroup Update (Studygroup studygroup);
+
+    void Affecter_studygroup(Long id_studygroup, Long id_local);
+    void Reterive_studygroup(Long id_studygroup, Long id_local, Status status);
+
+    public List<Studygroup> GetAllByStatus(Status status);
 }
