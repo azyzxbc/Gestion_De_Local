@@ -14,17 +14,18 @@ import java.util.Set;
 
 @Service
 @AllArgsConstructor
-public class StudygroupImpl implements IStudygroupService{
+public class StudygroupImpl implements IStudygroupService {
     StudygroupRepository studygroupRepository;
     LocalRepository localRepository;
+
     @Override
-    public Studygroup Add (Studygroup studygroup) {
+    public Studygroup Add(Studygroup studygroup) {
         return studygroupRepository.save(studygroup);
     }
 
     @Override
     public List<Studygroup> GetAll() {
-        return (List<Studygroup>) studygroupRepository.findAll() ;
+        return (List<Studygroup>) studygroupRepository.findAll();
     }
 
     @Override
@@ -33,12 +34,12 @@ public class StudygroupImpl implements IStudygroupService{
     }
 
     @Override
-    public void Delete (long idStudyGroup) {
+    public void Delete(long idStudyGroup) {
         studygroupRepository.deleteById(idStudyGroup);
     }
 
     @Override
-    public Studygroup Update (Studygroup studygroup) {
+    public Studygroup Update(Studygroup studygroup) {
         return studygroupRepository.save(studygroup);
     }
 
@@ -49,7 +50,10 @@ public class StudygroupImpl implements IStudygroupService{
         studygroup.setStatus(Status.close);
         studygroupRepository.save(studygroup);
         Local local = localRepository.findById(id_local).get();
-        local.setTotal_group_study(local.getTotal_group_study()+1);
+        local.setTotal_group_study(local.getTotal_group_study() + 1);
+        Set<Studygroup> studygroupSet = local.getStudygroups();
+        studygroupSet.add(studygroup);
+        local.setStudygroups(studygroupSet);
         localRepository.save(local);
     }
 
@@ -60,7 +64,7 @@ public class StudygroupImpl implements IStudygroupService{
         studygroup.setStatus(status);
         studygroupRepository.save(studygroup);
         Local local = localRepository.findById(id_local).get();
-        local.setTotal_group_study(local.getTotal_group_study()-1);
+        local.setTotal_group_study(local.getTotal_group_study() - 1);
         localRepository.save(local);
     }
 
@@ -71,10 +75,22 @@ public class StudygroupImpl implements IStudygroupService{
         List<Studygroup> studygroupsfilter = new ArrayList<>();
         for (Studygroup studygroup : studygroups) {
             System.out.println(studygroup.toString());
-            if (studygroup.getStatus().equals(status)){
+            if (studygroup.getStatus().equals(status)) {
                 studygroupsfilter.add(studygroup);
             }
         }
         return studygroupsfilter;
     }
+
+    @Override
+    public List<Studygroup> GetAllByIdlocal(Long id_local) {
+        List<Studygroup> studygroups = studygroupRepository.findAll();
+        List<Studygroup> studygroupList = new ArrayList<>();
+        for (Studygroup studygroup : studygroups) {
+            if (studygroup.getLocal().getIdLocal() == id_local) {
+                studygroupList.add(studygroup);
+            }}
+        return studygroupList;
+    }
+
 }

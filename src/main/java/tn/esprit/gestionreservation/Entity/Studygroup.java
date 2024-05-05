@@ -22,6 +22,7 @@ public class Studygroup {
     private Status status = Status.open;
     @ManyToMany(mappedBy = "Studygroups",cascade = CascadeType.ALL)
     private Set<Ressource> Ressources;
-    @ManyToMany(cascade = CascadeType.ALL)
-    private Set<Local> locals;
+    @ManyToOne
+    @JoinColumn(name = "local_id_local")
+    private Local local;
 }

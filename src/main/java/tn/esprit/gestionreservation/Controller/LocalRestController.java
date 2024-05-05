@@ -4,15 +4,17 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.gestionreservation.Entity.Local;
 import tn.esprit.gestionreservation.Service.ILocalService;
+import tn.esprit.gestionreservation.Service.StatsService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/Local")
 public class LocalRestController {
     ILocalService LocalService;
-
+    StatsService statsService;
     @GetMapping("")
     public List<Local> GetAll() {
         List<Local> listLocal = LocalService.GetAll();
@@ -46,4 +48,25 @@ public class LocalRestController {
         List<Local> listLocal = LocalService.AllAvliableLocal();
         return listLocal;
     }
+
+    @GetMapping("/stats")
+    public Map<String,Integer> stats() {
+        Map<String,Integer> stats = LocalService.getstatsalle();
+        return stats;
+    }
+
+    @GetMapping("/stats_avliables")
+    private Map<String,Integer> stats_avliables() {
+        Map<String ,Integer> stats = LocalService.getavaliablesstats();
+        return stats;
+    }
+    @GetMapping("/total")
+    public int getTotalNumberOfLocals() {
+        return LocalService.getTotalNumberOfLocals();}
+
+    @GetMapping("/allbynames")
+    public List<String> findallbynames() {
+        return LocalService.GetAllNames();}
+
+
 }

@@ -71,5 +71,11 @@ public class StudygroupController {
         Response.put("Result", "Retrieve is done");
         return new ResponseEntity<>(Response, HttpStatus.OK);
     }
+    @GetMapping("/getByIdLocal/{id_local}")
+    public List<Studygroup> GetAllByIdlocal(@PathVariable Long id_local){
+        List<Studygroup> studygroupList = studygroupService.GetAllByIdlocal(id_local);
+        return studygroupList;
+
+    }
 
 }
