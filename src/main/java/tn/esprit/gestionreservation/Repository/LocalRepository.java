@@ -11,4 +11,5 @@ public interface LocalRepository extends JpaRepository<Local, Long> {
     @Query("SELECT l.Name FROM Local l")
     List<String> findAllNames();
 
+
 }

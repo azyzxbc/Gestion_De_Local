@@ -24,6 +24,9 @@ public interface ILocalService {
     public int getTotalNumberOfLocals();
 
     public List<String> GetAllNames();
+    public Map<Character, List<String>> getBlocAndAvailableNamesStartingWithBloc();
+    public int getTotalAvailableLocals();
+    public int getTotalUnavailableLocals();
 
 
 }

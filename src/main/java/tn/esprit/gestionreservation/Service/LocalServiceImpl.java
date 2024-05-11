@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -91,5 +92,46 @@ public class LocalServiceImpl implements ILocalService{
         names = LocalRepository.findAllNames();
         return names;
     }
+    public Map<Character, List<String>> getBlocAndAvailableNamesStartingWithBloc() {
+        List<Local> allLocals = LocalRepository.findAll();
+
+        Map<Character, List<String>> blocAndNamesMap = new HashMap<>();
+
+        // Grouping by Bloc and collecting names starting with the respective Bloc character and available
+        allLocals.forEach(local -> {
+            char bloc = local.getBloc();
+            if (local.getAvailability() && !blocAndNamesMap.containsKey(bloc) && local.getName().charAt(0) == bloc) {
+                blocAndNamesMap.put(bloc, allLocals.stream()
+                        .filter(l -> l.getBloc() == bloc && l.getAvailability() && l.getName().charAt(0) == bloc)
+                        .map(Local::getName)
+                        .collect(Collectors.toList()));
+            }
+        });
+
+        return blocAndNamesMap;
+    }
+    public int getTotalAvailableLocals() {
+        int availableCount = 0;
+        List<Local> locals = LocalRepository.findAll();
+        for (Local local : locals) {
+            if (local.getAvailability()) {
+                availableCount++;
+            }
+        }
+        return availableCount;
+    }
+
+    public int getTotalUnavailableLocals() {
+        int unavailableCount = 0;
+        List<Local> locals = LocalRepository.findAll();
+        for (Local local : locals) {
+            if (!local.getAvailability()) {
+                unavailableCount++;
+            }
+        }
+        return unavailableCount;
+    }
+
+
 
 }

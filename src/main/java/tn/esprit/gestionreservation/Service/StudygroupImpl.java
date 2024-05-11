@@ -88,6 +88,7 @@ public class StudygroupImpl implements IStudygroupService {
         List<Studygroup> studygroupList = new ArrayList<>();
         for (Studygroup studygroup : studygroups) {
             if (studygroup.getLocal().getIdLocal() == id_local) {
+                studygroup.getLocal().setTotal_group_study(studygroup.getLocal().getTotal_group_study() + 1);
                 studygroupList.add(studygroup);
             }}
         return studygroupList;

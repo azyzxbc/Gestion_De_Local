@@ -1,6 +1,7 @@
 package tn.esprit.gestionreservation.Controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.gestionreservation.Entity.Local;
 import tn.esprit.gestionreservation.Service.ILocalService;
@@ -67,6 +68,20 @@ public class LocalRestController {
     @GetMapping("/allbynames")
     public List<String> findallbynames() {
         return LocalService.GetAllNames();}
+    @GetMapping("/bloc-and-available-names")
+    public ResponseEntity<Map<Character, List<String>>> getBlocAndAvailableNamesStartingWithBloc() {
+        Map<Character, List<String>> blocAndNamesMap = LocalService.getBlocAndAvailableNamesStartingWithBloc();
+        return ResponseEntity.ok(blocAndNamesMap);
+    }
+    @GetMapping("/available/count")
+    public int getTotalAvailableLocals() {
+        return LocalService.getTotalAvailableLocals();
+    }
+
+    @GetMapping("/unavailable/count")
+    public int getTotalUnavailableLocals() {
+        return LocalService.getTotalUnavailableLocals();
+    }
 
 
 }
